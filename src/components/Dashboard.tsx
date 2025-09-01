@@ -73,7 +73,7 @@ export const Dashboard = () => {
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Camera Feed - Takes up 2/3 on large screens */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2">
           <Card className="shadow-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -90,19 +90,8 @@ export const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="bg-gradient-primary/10 border-primary/20">
-              <CardContent className="pt-6">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-primary">
-                    {isActive ? '1' : '0'}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">Active Cameras</p>
-                </div>
-              </CardContent>
-            </Card>
-
+          {/* Storage and Uptime Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <Card className="bg-gradient-accent/10 border-accent/20">
               <CardContent className="pt-6">
                 <div className="text-center">
@@ -126,7 +115,19 @@ export const Dashboard = () => {
         </div>
 
         {/* Control Panel - Takes up 1/3 on large screens */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 space-y-6">
+          {/* Active Cameras Card */}
+          <Card className="bg-gradient-primary/10 border-primary/20">
+            <CardContent className="pt-6">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-primary">
+                  {isActive ? '1' : '0'}
+                </h3>
+                <p className="text-sm text-muted-foreground">Active Cameras</p>
+              </div>
+            </CardContent>
+          </Card>
+
           <ControlPanel
             isActive={isActive}
             onStart={handleStart}
