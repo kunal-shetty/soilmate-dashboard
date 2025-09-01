@@ -16,7 +16,7 @@ export const CameraFeed = ({ isActive, cameraId, title }: CameraFeedProps) => {
   return (
     <Card className="relative overflow-hidden shadow-card transition-smooth hover:shadow-glow">
       {/* Camera Feed Area */}
-      <div className="aspect-[4/3] bg-camera-bg flex items-center justify-center relative">
+      <div className="aspect-[16/10] bg-camera-bg flex items-center justify-center relative">
         {isActive ? (
           <div className="absolute inset-0">
             <iframe

@@ -1,7 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play, Square, RotateCcw, Settings, Activity, Clock, HardDrive } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Play, Square, RotateCcw, Settings, Activity, Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -13,6 +16,8 @@ interface ControlPanelProps {
 
 export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [newCameraIP, setNewCameraIP] = useState("");
 
   const handleStart = async () => {
     setIsLoading(true);
@@ -52,6 +57,23 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
     }
   };
 
+  const handleAddCamera = () => {
+    if (newCameraIP.trim()) {
+      toast({
+        title: "Camera Added",
+        description: `New camera with IP ${newCameraIP} has been added`,
+      });
+      setNewCameraIP("");
+      setIsSettingsOpen(false);
+    } else {
+      toast({
+        title: "Error",
+        description: "Please enter a valid IP address",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Main Controls */}
@@ -86,18 +108,41 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
           </div>
           
           <div className="flex gap-3">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => window.location.reload()}
-            >
+            <Button variant="outline" className="flex-1">
               <RotateCcw className="h-4 w-4 mr-2" />
               Refresh
             </Button>
-            <Button variant="outline" className="flex-1">
-              <Settings className="h-4 w-4 mr-2" />
-              Settings
-            </Button>
+            <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="flex-1">
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Camera Settings</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="ip" className="text-right">
+                      Camera IP
+                    </Label>
+                    <Input
+                      id="ip"
+                      placeholder="192.168.1.100"
+                      value={newCameraIP}
+                      onChange={(e) => setNewCameraIP(e.target.value)}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <Button onClick={handleAddCamera} className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add New Camera
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </CardContent>
       </Card>

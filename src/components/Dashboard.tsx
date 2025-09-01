@@ -89,29 +89,6 @@ export const Dashboard = () => {
               />
             </CardContent>
           </Card>
-
-          {/* Storage and Uptime Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <Card className="bg-gradient-accent/10 border-accent/20">
-              <CardContent className="pt-6">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-accent">2.4 GB</h3>
-                  <p className="text-sm text-muted-foreground">Storage Used</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-success/10 border-success/20">
-              <CardContent className="pt-6">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-success">
-                    {isActive ? '99.9%' : '0%'}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">Uptime</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
 
         {/* Control Panel - Takes up 1/3 on large screens */}
