@@ -102,42 +102,6 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
         </CardContent>
       </Card>
 
-      {/* Status Information */}
-      <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle>System Status</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Camera Status</span>
-            <Badge variant={isActive ? "secondary" : "destructive"} className={
-              isActive 
-                ? "bg-success/20 text-success border-success/30" 
-                : "bg-destructive/20 text-destructive border-destructive/30"
-            }>
-              {isActive ? "ACTIVE" : "OFFLINE"}
-            </Badge>
-          </div>
-          
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground flex items-center gap-2">
-              <Clock className="h-4 w-4" />
-              Uptime
-            </span>
-            <span className="text-sm font-medium">
-              {isActive ? "2h 34m" : "0m"}
-            </span>
-          </div>
-          
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground flex items-center gap-2">
-              <HardDrive className="h-4 w-4" />
-              Storage
-            </span>
-            <span className="text-sm font-medium">2.4 GB / 32 GB</span>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };

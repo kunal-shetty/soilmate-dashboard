@@ -9,13 +9,22 @@ interface CameraFeedProps {
 }
 
 export const CameraFeed = ({ isActive, cameraId, title }: CameraFeedProps) => {
+  // Get IP address from URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const ipAddress = urlParams.get('ip') || '192.168.1.100'; // Default IP if not provided
+
   return (
     <Card className="relative overflow-hidden shadow-card transition-smooth hover:shadow-glow">
       {/* Camera Feed Area */}
       <div className="aspect-video bg-camera-bg flex items-center justify-center relative">
         {isActive ? (
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-            <Camera className="h-16 w-16 text-muted-foreground animate-pulse" />
+          <div className="absolute inset-0">
+            <iframe
+              src={`http://${ipAddress}`}
+              className="w-full h-full border-0"
+              title="IP Camera Feed"
+              allow="camera"
+            />
             <div className="absolute bottom-4 left-4">
               <Badge variant="secondary" className="bg-success/20 text-success border-success/30">
                 <Wifi className="h-3 w-3 mr-1" />
@@ -40,7 +49,7 @@ export const CameraFeed = ({ isActive, cameraId, title }: CameraFeedProps) => {
         <div className="absolute top-4 left-4">
           <div className="bg-background/80 backdrop-blur-sm rounded px-2 py-1">
             <p className="text-xs font-medium">{title}</p>
-            <p className="text-xs text-muted-foreground">ID: {cameraId}</p>
+            <p className="text-xs text-muted-foreground">ID: {cameraId} | IP: {ipAddress}</p>
           </div>
         </div>
       </div>
