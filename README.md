@@ -83,7 +83,3 @@ The app will now be running at **[http://localhost:8000](http://localhost:8000)*
 * [USDA Precision Tech Adoption](https://www.ers.usda.gov/data-products/charts-of-note/chart-detail?chartId=110550)
 
 ---
-
-⚡ Done — you can **copy this entire thing directly** into `README.md`.
-
-Do you also want me to add a **section for environment variables** (like `NEXT_PUBLIC_CAMERA_IP`) so people know how to connect their own camera feed?
