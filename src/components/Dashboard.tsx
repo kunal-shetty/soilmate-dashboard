@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import SubscriptionPage from "./Subscription";
 import { CameraFeed } from "./CameraFeed";
-import { Shield, Wifi, AlertCircle, CheckCircle, Activity, Droplets, Thermometer, Leaf, BarChart2, LayoutDashboard } from "lucide-react";
+import { Shield, Wifi, AlertCircle, CheckCircle, Activity, Droplets, CalendarCheck, BadgeInfo, BookOpen, Newspaper, Thermometer, Leaf, BarChart2, ChartNoAxesCombined, Cog, UserRoundPen, LayoutDashboard } from "lucide-react";
 import { ipAddress } from "./CameraFeed";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -15,13 +16,15 @@ import {
 const Sidebar = ({ active, setActive }: { active: string; setActive: (val: string) => void }) => {
   const navItems = [
     { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { key: "analytics", label: "Analytics", icon: Activity },
+    { key: "analytics", label: "Real-time Analytics", icon: Activity },
     { key: "charts", label: "Charts", icon: BarChart2 },
-    { key: "trends", label: "Trends", icon: BarChart2},
-    { key: "settings", label: "Settings", icon: BarChart2},
-    { key: "subscription", label: "Subscription", icon: BarChart2},
-    { key: "help", label: "Help & Support", icon: BarChart2},
-    { key: "about", label: "About", icon: BarChart2},
+    { key: "trends", label: "Trends", icon: ChartNoAxesCombined},
+    { key: "subscription", label: "Subscription", icon: CalendarCheck},
+    { key: "help", label: "Help & Support", icon: BadgeInfo},
+    { key: "about", label: "About", icon: BookOpen},
+    { key: "news", label: "News", icon: Newspaper},
+    { key: "settings", label: "Settings", icon: Cog},
+    { key: "profile", label: "Profile", icon: UserRoundPen},
   ];
 
   return (
@@ -477,7 +480,9 @@ const anomalyCheck = (moisture: number, temperature: number, ph: number) => {
     </Card>
   </div>
 )}
-
+  {activePage === "subscription" && (
+  <SubscriptionPage/>
+    )}
       </main>
     </div>
   );
