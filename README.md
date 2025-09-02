@@ -1,73 +1,89 @@
-# Welcome to your Lovable project
+# 🌱 SoilMate Dashboard
 
-## Project info
+SoilMate is a **smart soil surveillance and farming analytics dashboard** that integrates live camera feeds, automated soil health monitoring, and farming insights into a clean, modern web interface.
+It helps farmers, researchers, and agri-tech enthusiasts visualize key soil metrics, control IoT-enabled cameras, and track precision farming trends.
 
-**URL**: https://lovable.dev/projects/0d70b64a-e97b-4b5d-9812-5a47c8b0576a
+---
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+* 📊 **Dashboard Overview** – Live soil metrics: moisture, pH, temperature, fertility
+* 🎥 **Camera Feed** – Start/Stop camera, take screenshots, refresh feed, add new cameras
+* 🕹 **Control Panel** – Manage connected cameras with intuitive buttons
+* 📈 **Analytics Section** – Summary cards with soil health insights and anomaly detection
+* 📊 **Charts Section** – Static & dynamic charts on:
 
-**Use Lovable**
+  * Optimal pH ranges for crops
+  * Crop water and nutrient requirements
+  * Soil type moisture retention
+  * Global smart farming adoption stats
+  * Market size trends in precision agriculture
+* 🌗 **Responsive UI** – Sidebar navigation, header controls, and footer
+* 🔄 **Dynamic Demo Data** – Soil metrics update every 5 seconds to feel “alive”
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0d70b64a-e97b-4b5d-9812-5a47c8b0576a) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+* **Framework**: React (Next.js recommended)
+* **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+* **Charts**: [Recharts](https://recharts.org/)
+* **Icons**: [lucide-react](https://lucide.dev/)
+* **Styling**: Tailwind CSS
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📦 Installation
 
-Follow these steps:
+### 1. Clone the repository
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/kunal-shetty/soilmate-dashboard.git
+cd soilmate-dashboard
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 2. Install dependencies
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
+# or
+yarn install
+
+
+### 3. Start the development server
+
 npm run dev
-```
+# or
+yarn dev
 
-**Edit a file directly in GitHub**
+The app will now be running at **[http://localhost:3000](http://localhost:3000)**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 📊 Demo Data
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+* Soil data (moisture, pH, temperature, fertility) is randomized every 5 seconds
+* Charts include both **static agricultural reference data** and **dynamic demo values**
+* Easily extendable with real IoT soil sensors and camera APIs
 
-## What technologies are used for this project?
+---
 
-This project is built with:
+## 🤝 Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Fork this repo
+2. Create a new branch (`feature/your-feature`)
+3. Commit your changes
+4. Push and open a Pull Request
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/0d70b64a-e97b-4b5d-9812-5a47c8b0576a) and click on Share -> Publish.
+## 🌍 References
 
-## Can I connect a custom domain to my Lovable project?
+* [Recharts Documentation](https://recharts.org/en-US/)
+* [shadcn/ui Components](https://ui.shadcn.com/)
+* [Precision Farming Market Insights](https://www.precedenceresearch.com/precision-farming-market)
+* [USDA Precision Tech Adoption](https://www.ers.usda.gov/data-products/charts-of-note/chart-detail?chartId=110550)
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+⚡ Done — you can **copy this entire thing directly** into `README.md`.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Do you also want me to add a **section for environment variables** (like `NEXT_PUBLIC_CAMERA_IP`) so people know how to connect their own camera feed?
