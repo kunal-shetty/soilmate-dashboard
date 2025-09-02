@@ -1,10 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Play, Square, RotateCcw, Settings, Activity, Plus } from "lucide-react";
+import { Play, Square, RotateCcw, Settings, Activity, Camera, Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -12,9 +11,10 @@ interface ControlPanelProps {
   isActive: boolean;
   onStart: () => void;
   onStop: () => void;
+  onScreenshot: () => void;
 }
 
-export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) => {
+export const ControlPanel = ({ isActive, onStart, onStop, onScreenshot }: ControlPanelProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [newCameraIP, setNewCameraIP] = useState("");
@@ -27,7 +27,7 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
         title: "Camera Started",
         description: "SoilMate security camera is now active",
       });
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Failed to start camera",
@@ -46,10 +46,29 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
         title: "Camera Stopped",
         description: "SoilMate security camera has been stopped",
       });
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Failed to stop camera",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleScreenshot = async () => {
+    setIsLoading(true);
+    try {
+      await onScreenshot();
+      toast({
+        title: "Screenshot Captured",
+        description: "Screenshot saved successfully",
+      });
+    } catch {
+      toast({
+        title: "Error",
+        description: "Failed to capture screenshot",
         variant: "destructive",
       });
     } finally {
@@ -76,37 +95,48 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
 
   return (
     <div className="space-y-6">
-      {/* Main Controls */}
-      <Card className="bg-control-panel shadow-card">
+      <Card className="shadow-md rounded-2xl border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-lg font-semibold">
             <Activity className="h-5 w-5 text-primary" />
             Camera Controls
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5">
+          {/* Main action buttons */}
           <div className="flex gap-3">
             <Button
               onClick={handleStart}
               disabled={isActive || isLoading}
-              className="flex-1 bg-gradient-primary hover:shadow-glow transition-bounce"
+              className="flex-1"
               size="lg"
             >
               <Play className="h-4 w-4 mr-2" />
-              Start Camera
+              Start
             </Button>
             <Button
               onClick={handleStop}
               disabled={!isActive || isLoading}
               variant="destructive"
-              className="flex-1 bg-gradient-danger hover:shadow-accent-glow transition-bounce"
+              className="flex-1"
               size="lg"
             >
               <Square className="h-4 w-4 mr-2" />
-              Stop Camera
+              Stop
+            </Button>
+            <Button
+              onClick={handleScreenshot}
+              disabled={!isActive || isLoading}
+              variant="secondary"
+              className="flex-1"
+              size="lg"
+            >
+              <Camera className="h-4 w-4 mr-2" />
+              Screenshot
             </Button>
           </div>
-          
+
+          {/* Refresh + Settings */}
           <div className="flex gap-3">
             <Button variant="outline" className="flex-1">
               <RotateCcw className="h-4 w-4 mr-2" />
@@ -138,7 +168,7 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
                   </div>
                   <Button onClick={handleAddCamera} className="w-full">
                     <Plus className="h-4 w-4 mr-2" />
-                    Add New Camera
+                    Add Camera
                   </Button>
                 </div>
               </DialogContent>
@@ -146,7 +176,6 @@ export const ControlPanel = ({ isActive, onStart, onStop }: ControlPanelProps) =
           </div>
         </CardContent>
       </Card>
-
     </div>
   );
 };
