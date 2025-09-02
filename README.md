@@ -37,24 +37,24 @@ It helps farmers, researchers, and agri-tech enthusiasts visualize key soil metr
 
 ### 1. Clone the repository
 
-git clone https://github.com/kunal-shetty/soilmate-dashboard.git
+git clone https://github.com/kunal-shetty/soilmate-dashboard.git<br>
 cd soilmate-dashboard
 
 
 ### 2. Install dependencies
 
 npm install
-# or
+or
 yarn install
 
 
 ### 3. Start the development server
 
 npm run dev
-# or
+or
 yarn dev
 
-The app will now be running at **[http://localhost:3000](http://localhost:3000)**
+The app will now be running at **[http://localhost:8000](http://localhost:8000)**
 
 ---
 
