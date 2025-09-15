@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Camera, Wifi, WifiOff, Play, Square } from "lucide-react";
@@ -13,9 +16,6 @@ interface CameraFeedProps {
   handleAddCamera: () => void;
 }
 
-export const urlParams = new URLSearchParams(window.location.search);
-export const ipAddress = urlParams.get("ip") || "192.168.1.100:8080";
-
 export const CameraFeed = ({
   isActive,
   cameraId,
@@ -23,8 +23,28 @@ export const CameraFeed = ({
   onStart,
   onStop,
   onScreenshot,
-  handleAddCamera
+  handleAddCamera,
 }: CameraFeedProps) => {
+  const [ipAddress, setIpAddress] = useState("");
+  const port = "8080";
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ip = params.get("ip");
+
+    if (!ip) {
+      const userIp = prompt("Enter your IP address (example: 192.168.1.50)");
+      if (userIp) {
+        params.set("ip", userIp);
+        window.location.search = params.toString(); // reload with new param
+      }
+    } else {
+      setIpAddress(ip);
+    }
+  }, []);
+
+  const finalAddress = `${ipAddress}:${port}`;
+
   return (
     <Card className="relative overflow-hidden shadow-card transition-smooth hover:shadow-glow">
       {/* Header with title + controls */}
@@ -55,14 +75,7 @@ export const CameraFeed = ({
           >
             <Camera className="h-4 w-4" />
           </Button>
-          <Button
-            onClick={handleAddCamera}
-            size="sm"
-            variant="secondary"
-          >
-            <Camera className="h-4 w-4" />
-            
-          </Button>
+          
         </div>
       </CardHeader>
 
@@ -72,7 +85,7 @@ export const CameraFeed = ({
           {isActive ? (
             <div className="absolute inset-0">
               <iframe
-                src={`http://${ipAddress}`}
+                src={`http://${finalAddress}`}
                 className="w-full h-full border-0"
                 title="IP Camera Feed"
                 allow="camera"
@@ -111,10 +124,10 @@ export const CameraFeed = ({
             </div>
           )}
 
-          {/* Info overlay bottom-left */}
+          {/* Info overlay */}
           <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm rounded px-2 py-1">
             <p className="text-xs font-medium">ID: {cameraId}</p>
-            <p className="text-xs text-muted-foreground">IP: {ipAddress}</p>
+            <p className="text-xs text-muted-foreground">IP: {finalAddress}</p>
           </div>
         </div>
       </CardContent>

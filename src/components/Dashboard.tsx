@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SubscriptionPage from "./Subscription";
+import TrendsPage from "./Trends";
+import About from "./About";
+import { HelpAndSupport } from "./HelpAndSupport";
 import { CameraFeed } from "./CameraFeed";
 import { Shield, Wifi, AlertCircle, CheckCircle, Activity, Droplets, CalendarCheck, BadgeInfo, BookOpen, Newspaper, Thermometer, Leaf, BarChart2, ChartNoAxesCombined, Cog, UserRoundPen, LayoutDashboard } from "lucide-react";
-import { ipAddress } from "./CameraFeed";
 import { toast } from "@/hooks/use-toast";
 import {
   LineChart, Line, BarChart, Bar,
@@ -51,6 +53,8 @@ const Sidebar = ({ active, setActive }: { active: string; setActive: (val: strin
   );
 };
 
+
+
 export const Dashboard = () => {
   const [isActive, setIsActive] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'checking'>('checking');
@@ -69,6 +73,26 @@ const [history, setHistory] = useState<{time: string, moisture: number, fertilit
   const [moisture, setMoisture] = useState(" - ");
   const [temperature, setTemperature] = useState(" - ");
   const [ph, setPh] = useState(" - ");
+
+  const params = new URLSearchParams(window.location.search);
+  const [ipAddress, setIpAddress] = useState("");
+  const port = "8080";
+
+  useEffect(() => {
+    const ip = params.get("ip");
+
+    if (!ip) {
+      const userIp = prompt("Enter your IP address (example: 192.168.1.50)");
+      if (userIp) {
+        params.set("ip", userIp);
+        window.location.search = params.toString(); // reload with new param
+      }
+    } else {
+      setIpAddress(ip);
+    }
+  }, []);
+
+  const finalAddress = `${ipAddress}:${port}`;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -125,14 +149,14 @@ const anomalyCheck = (moisture: number, temperature: number, ph: number) => {
 };
 
   const handleStart = async () => {
-    await fetch(`http://${ipAddress}/start`);
+    await fetch(`http://${finalAddress}/start`);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsActive(true);
     addLog("Camera started");
   };
 
   const handleStop = async () => {
-    await fetch(`http://${ipAddress}/stop`);
+    await fetch(`http://${finalAddress}/stop`);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsActive(false);
     setTemperature(" - ");
@@ -143,7 +167,7 @@ const anomalyCheck = (moisture: number, temperature: number, ph: number) => {
 
   const handleScreenshot = async () => {
     try {
-      const baseUrl = `http://${ipAddress}`;
+      const baseUrl = `http://${finalAddress}`;
       const res = await fetch(`${baseUrl}/screenshot`);
       if (!res.ok) throw new Error("No screenshot available");
       window.open(`${baseUrl}/screenshot`, "_blank");
@@ -168,6 +192,19 @@ const anomalyCheck = (moisture: number, temperature: number, ph: number) => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleEmailSupport = () => {
+    window.location.href =
+      "mailto:support@soilmate.com?subject=Soilmate%20Support%20Request";
+  };
+
+  const handleLiveChat = () => {
+    window.open("https://soilmate.com/livechat", "_blank");
+  };
+
+  const handleReportProblem = () => {
+    window.open("https://forms.gle/example-problem-form", "_blank");
   };
 
   return (
@@ -482,6 +519,15 @@ const anomalyCheck = (moisture: number, temperature: number, ph: number) => {
 )}
   {activePage === "subscription" && (
   <SubscriptionPage/>
+    )}
+    {activePage === "trends" && (
+  <TrendsPage/>
+    )}
+    {activePage === "help" && (
+  <HelpAndSupport handleEmailSupport={handleEmailSupport} handleLiveChat={handleLiveChat} handleReportProblem={handleReportProblem}/>
+    )}
+    {activePage === "about" && (
+  <About/>
     )}
       </main>
     </div>
