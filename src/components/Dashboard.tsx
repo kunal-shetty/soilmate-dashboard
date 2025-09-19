@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SubscriptionPage from "./Subscription";
 import TrendsPage from "./Trends";
+import AgricultureNewsPage from "./News";
 import About from "./About";
 import { HelpAndSupport } from "./HelpAndSupport";
 import { CameraFeed } from "./CameraFeed";
@@ -25,8 +26,6 @@ const Sidebar = ({ active, setActive }: { active: string; setActive: (val: strin
     { key: "help", label: "Help & Support", icon: BadgeInfo},
     { key: "about", label: "About", icon: BookOpen},
     { key: "news", label: "News", icon: Newspaper},
-    { key: "settings", label: "Settings", icon: Cog},
-    { key: "profile", label: "Profile", icon: UserRoundPen},
   ];
 
   return (
@@ -528,6 +527,9 @@ const anomalyCheck = (moisture: number, temperature: number, ph: number) => {
     )}
     {activePage === "about" && (
   <About/>
+    )}
+    {activePage === "news" && (
+  <AgricultureNewsPage/>
     )}
       </main>
     </div>

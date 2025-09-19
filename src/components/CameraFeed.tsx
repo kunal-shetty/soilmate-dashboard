@@ -86,16 +86,17 @@ export const CameraFeed = ({
             <div className="absolute inset-0">
               <iframe
                 src={`http://${finalAddress}`}
-                className="w-full h-full border-0"
-                title="IP Camera Feed"
-                allow="camera"
-                style={{
-                  overflow: "hidden",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
+        title="IP Camera Feed"
+        allow="camera"
+        scrolling="no"
+        className="absolute top-1/2 left-1/2 border-0"
+        style={{
+          width: "100vh", // use the container's height
+          height: "100vw", // use the container's width
+          objectFit: "cover",
+          transform: "translate(-50%, -50%) rotate(90deg)",
+          transformOrigin: "center center",
                 }}
-                scrolling="no"
               />
 
               <div className="absolute bottom-4 left-4">
@@ -125,10 +126,7 @@ export const CameraFeed = ({
           )}
 
           {/* Info overlay */}
-          <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm rounded px-2 py-1">
-            <p className="text-xs font-medium">ID: {cameraId}</p>
-            <p className="text-xs text-muted-foreground">IP: {finalAddress}</p>
-          </div>
+          
         </div>
       </CardContent>
     </Card>

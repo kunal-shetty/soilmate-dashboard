@@ -16,13 +16,13 @@ interface Plan {
 const plans: Plan[] = [
   {
     title: "Free",
-    price: "$0 / month",
+    price: "₹0 / month",
     description: "Basic soil detection features for personal use.",
     features: ["1 Soil Sensor", "Basic Fertility Reports", "Email Support"],
   },
   {
     title: "Pro",
-    price: "$9.99 / month",
+    price: "₹699 / month",
     description: "Advanced features for small farms & agri-enthusiasts.",
     features: [
       "Up to 5 Soil Sensors",
@@ -62,7 +62,7 @@ export default function SubscriptionPage() {
 
         {/* Subscription expiry notice */}
         <div className="inline-block bg-yellow-100 text-yellow-800 border border-yellow-300 rounded-lg px-4 py-2 text-sm font-medium">
-          Your subscription expires in <span className="font-semibold">12 days</span>
+          Your subscription expires in <span className="font-semibold">11 days</span>
         </div>
       </div>
 
